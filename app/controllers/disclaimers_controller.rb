@@ -1,0 +1,2 @@
+class DisclaimersController < ApplicationController
+end
