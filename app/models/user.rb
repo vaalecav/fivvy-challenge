@@ -2,4 +2,5 @@
 
 # User class
 class User < ApplicationRecord
+  has_many :acceptance
 end

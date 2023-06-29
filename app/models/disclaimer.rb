@@ -2,4 +2,5 @@
 
 # Disclaimer class
 class Disclaimer < ApplicationRecord
+  has_many :acceptance
 end
