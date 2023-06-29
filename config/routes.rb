@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :disclaimers, only: %i[index show create update destroy]
+  resources :acceptances, only: %i[index create]
 end
