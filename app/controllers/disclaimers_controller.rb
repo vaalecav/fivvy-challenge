@@ -16,12 +16,13 @@ class DisclaimersController < ApplicationController
   end
 
   def update
-    updated_disclaimer = disclaimer.update!(update_params)
-    render json: updated_disclaimer
+    disclaimer.update!(update_params)
+    render json: disclaimer
   end
 
   def destroy
     disclaimer.destroy!
+    head :no_content
   end
 
   private
@@ -32,7 +33,7 @@ class DisclaimersController < ApplicationController
 
   def list_disclaimers
     text_param = params.permit(:text)
-    return Disclaimer.where('text ILIKE ?', "%#{text_param}%") if text_param
+    return Disclaimer.where('text ILIKE ?', "%#{params[:text]}%") if text_param.present?
 
     Disclaimer.all
   end

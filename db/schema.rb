@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,34 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_623_010_847) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_010847) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'acceptances', force: :cascade do |t|
-    t.bigint 'disclaimer_id', null: false
-    t.bigint 'user_id', null: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['disclaimer_id'], name: 'index_acceptances_on_disclaimer_id'
-    t.index ['user_id'], name: 'index_acceptances_on_user_id'
+  create_table "acceptances", force: :cascade do |t|
+    t.bigint "disclaimer_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["disclaimer_id"], name: "index_acceptances_on_disclaimer_id"
+    t.index ["user_id"], name: "index_acceptances_on_user_id"
   end
 
-  create_table 'disclaimers', force: :cascade do |t|
-    t.string 'name'
-    t.text 'text'
-    t.integer 'version'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "disclaimers", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "text", null: false
+    t.string "version", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_foreign_key 'acceptances', 'disclaimers'
-  add_foreign_key 'acceptances', 'users'
+  add_foreign_key "acceptances", "disclaimers"
+  add_foreign_key "acceptances", "users"
 end

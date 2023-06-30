@@ -4,9 +4,9 @@
 class CreateDisclaimers < ActiveRecord::Migration[7.0]
   def change
     create_table :disclaimers do |t|
-      t.string :name
-      t.text :text
-      t.integer :version
+      t.string :name, null: false
+      t.text :text, null: false
+      t.string :version, null: false
 
       t.timestamps
     end

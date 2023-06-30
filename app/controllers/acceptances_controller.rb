@@ -18,7 +18,8 @@ class AcceptancesController < ApplicationController
   end
 
   def create_params
-    params.require(%i[disclaimer_id user_id])
-    params.permit(%i[disclaimer_id user_id])
+    acceptances_params = %i[disclaimer_id user_id]
+    params.require(acceptances_params)
+    params.permit(acceptances_params)
   end
 end
