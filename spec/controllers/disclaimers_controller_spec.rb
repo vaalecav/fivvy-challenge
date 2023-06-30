@@ -45,23 +45,35 @@ RSpec.describe DisclaimersController, type: :controller do
 
     before { subject }
 
-    context 'when id is provided' do
-      let(:show_params) { one_disclaimer.id }
+    context 'with valid parameters' do
+      context 'when id is provided' do
+        let(:show_params) { one_disclaimer.id }
 
-      it 'returns a successful response' do
-        expect(response).to be_successful
-      end
+        it 'returns a successful response' do
+          expect(response).to be_successful
+        end
 
-      it 'returns the disclaimer as JSON' do
-        expect(response.body).to eq(one_disclaimer.to_json)
+        it 'returns the disclaimer as JSON' do
+          expect(response.body).to eq(one_disclaimer.to_json)
+        end
       end
     end
 
-    context 'when id is not provided' do
-      let(:show_params) { '' }
+    context 'with invalid parameters' do
+      context 'when id does not exist' do
+        let(:show_params) { 1_234_567_789 }
 
-      it 'returns a bad request status' do
-        expect(response).to have_http_status(:bad_request)
+        it 'returns a bad request status' do
+          expect(subject).to have_http_status(:not_found)
+        end
+      end
+
+      context 'when id is not provided' do
+        let(:show_params) { '' }
+
+        it 'returns a bad request status' do
+          expect(response).to have_http_status(:bad_request)
+        end
       end
     end
   end
@@ -128,6 +140,14 @@ RSpec.describe DisclaimersController, type: :controller do
         end
       end
 
+      context 'when id does not exist', focus: true do
+        before { put :update, params: update_params.merge(id: 1_234_567_789) }
+
+        it 'returns a bad request status' do
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+
       context 'when an invalid name attribute is provided' do
         before { put :update, params: update_params.merge(name: nil) }
 
@@ -151,23 +171,35 @@ RSpec.describe DisclaimersController, type: :controller do
 
     before { one_disclaimer }
 
-    context 'when id is provided' do
-      let(:destroy_params) { one_disclaimer.id }
+    context 'with valid parameters' do
+      context 'when id is provided' do
+        let(:destroy_params) { one_disclaimer.id }
 
-      it 'destroys the disclaimer' do
-        expect { subject }.to change(Disclaimer, :count).by(-1)
-      end
+        it 'destroys the disclaimer' do
+          expect { subject }.to change(Disclaimer, :count).by(-1)
+        end
 
-      it 'returns a no content status' do
-        expect(subject).to have_http_status(:no_content)
+        it 'returns a no content status' do
+          expect(subject).to have_http_status(:no_content)
+        end
       end
     end
 
-    context 'when id is not provided' do
-      let(:destroy_params) { '' }
+    context 'with invalid parameters' do
+      context 'when id does not exist' do
+        let(:destroy_params) { 1_234_567_789 }
 
-      it 'returns a bad request status' do
-        expect(subject).to have_http_status(:bad_request)
+        it 'returns a bad request status' do
+          expect(subject).to have_http_status(:not_found)
+        end
+      end
+
+      context 'when id is not provided' do
+        let(:destroy_params) { '' }
+
+        it 'returns a bad request status' do
+          expect(subject).to have_http_status(:bad_request)
+        end
       end
     end
   end
