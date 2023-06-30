@@ -18,6 +18,7 @@ class AcceptancesController < ApplicationController
   end
 
   def create_params
-    params.require(:disclaimer_id, :user_id)
+    params.require(%i[disclaimer_id user_id])
+    params.permit(%i[disclaimer_id user_id])
   end
 end
